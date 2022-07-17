@@ -1,5 +1,8 @@
 PODS:
   - boost (1.76.0)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.66.4)
@@ -272,6 +275,10 @@ PODS:
   - React-jsinspector (0.66.4)
   - React-logger (0.66.4):
     - glog
+  - react-native-bella-charts (0.1.0):
+    - Charts (= 3.6.0)
+    - React-Core
+    - SwiftyJSON (= 5.0)
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - React-perflogger (0.66.4)
@@ -373,6 +380,7 @@ PODS:
   - RNScreens (3.15.0):
     - React-Core
     - React-RCTImage
+  - SwiftyJSON (5.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -418,6 +426,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-bella-charts (from `../react-native-bella-charts`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -439,6 +448,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Charts
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -452,6 +462,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - SwiftyJSON
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -489,6 +500,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-bella-charts:
+    :path: "../react-native-bella-charts"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -528,6 +541,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
@@ -557,6 +571,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
+  react-native-bella-charts: 5bf63a1070eddcfbd68119580bcb813efb864574
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-perflogger: 93075d8931c32cd1fce8a98c15d2d5ccc4d891bd
   React-RCTActionSheet: 7d3041e6761b4f3044a37079ddcb156575fb6d89
@@ -574,6 +589,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
   RNReanimated: 11e6e30bbc49079b7f0c321ac5830e6d113d0224
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
