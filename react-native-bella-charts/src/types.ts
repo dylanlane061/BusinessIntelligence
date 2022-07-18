@@ -23,11 +23,11 @@ export type ChartEntry<D = any> = {
 };
 
 export type ChartLegend = {
-  enabled?: false;
+  enabled?: boolean;
 };
 
 export type ChartSelectEvent<D = any> = NativeSyntheticEvent<{
-  data: ChartEntry<D>;
+  data: ChartEntry<D> | undefined;
 }>;
 
 export type DataSet<C = {}> = {
@@ -62,12 +62,12 @@ export type XAxis = {
 
 export type YAxis = {
   left?: {
-    drawLabels?: false;
-    drawAxisLine?: false;
-    drawGridLines?: false;
+    drawLabels?: boolean;
+    drawAxisLine?: boolean;
+    drawGridLines?: boolean;
   };
   right?: {
-    enabled?: false;
+    enabled?: boolean;
   };
 };
 

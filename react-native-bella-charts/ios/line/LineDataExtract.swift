@@ -54,7 +54,7 @@ class LineDataExtract : DataExtract {
         if config["highlightColor"].int != nil {
             lineDataSet.highlightColor = RCTConvert.uiColor(config["highlightColor"].intValue);
         }
-        
+            
         if config["formatAsPrice"].bool != nil {
             lineDataSet.valueFormatter = PriceFormatter();
         }
