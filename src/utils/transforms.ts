@@ -1,37 +1,7 @@
-import {
-  Company,
-  WatchlistChartEntry,
-  RevenueChartEntry,
-  RevenueRecord,
-} from '../types';
-import {priceFormatter} from './formatters';
 import dayjs from 'dayjs';
+import {RevenueChartEntry, RevenueRecord} from '../types';
+import {priceFormatter} from './formatters';
 import {INPUT_DATE_FORMAT, OUTPUT_DATE_FORMAT} from '../constants';
-
-// Watchlist Transform
-const sumRecordValue = (total: number, record: RevenueRecord) =>
-  total + record.value;
-
-export const createWatchlistChartEntry = (
-  record: Company,
-  index: number,
-): WatchlistChartEntry => {
-  const total = record.revenue.reduce(sumRecordValue, 0);
-
-  return {
-    x: index,
-    y: total,
-    data: {
-      id: record.id,
-      name: record.name,
-      total: priceFormatter.standard(total),
-    },
-  };
-};
-
-export const createWatchlistChartData = (
-  revenue: Company[],
-): WatchlistChartEntry[] => revenue.map(createWatchlistChartEntry);
 
 // Revenue Transform
 export const sortByRecordDate = (
