@@ -1,10 +1,10 @@
 import React from 'react';
-import {ProcessedColorValue} from 'react-native';
+import {ProcessedColorValue, processColor} from 'react-native';
 import {BellaLineChart, ChartSelectEvent} from 'react-native-bella-charts';
 
 import {RevenueChartEntry, RevenueChartEntryData} from '../types';
 import {COMMON_CHART_PROPS} from '../constants';
-import {CHART_COLORS} from '../theme';
+import {useColorTheme} from '../theme';
 
 type RevenueLineGraphProps = {
   data: RevenueChartEntry[];
@@ -12,17 +12,14 @@ type RevenueLineGraphProps = {
   color?: ProcessedColorValue | null;
 };
 
-const DATA_CONFIG = {
-  drawValues: false,
-  lineWidth: 3,
-  drawCircles: false,
-  drawHorizontalHighlightIndicator: false,
-  highlightLineWidth: 2,
-  highlightColor: CHART_COLORS.highlight,
-};
-
+/**
+ * @description
+ * Renders line graph for given revenue data.
+ */
 export const RevenueLineGraph = (props: RevenueLineGraphProps) => {
-  const {data, color = CHART_COLORS.primary, onEntrySelect} = props;
+  const {data, color, onEntrySelect} = props;
+
+  const colors = useColorTheme();
 
   const onSelect = (e: ChartSelectEvent<RevenueChartEntryData>) => {
     const chartEventData = e.nativeEvent.data;
@@ -38,8 +35,13 @@ export const RevenueLineGraph = (props: RevenueLineGraphProps) => {
           {
             values: data,
             config: {
-              ...DATA_CONFIG,
-              color,
+              lineWidth: 3,
+              drawValues: false,
+              drawCircles: false,
+              highlightLineWidth: 2,
+              drawHorizontalHighlightIndicator: false,
+              highlightColor: processColor(colors.line),
+              color: color || processColor(colors.primary),
             },
           },
         ],
@@ -47,8 +49,6 @@ export const RevenueLineGraph = (props: RevenueLineGraphProps) => {
       viewPortOffsets={{
         left: 0,
         top: 0,
-        right: 0,
-        bottom: 0,
       }}
       onSelect={onSelect}
     />

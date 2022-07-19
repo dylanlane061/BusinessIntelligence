@@ -1,29 +1,34 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, Theme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Home} from '../screens/Home';
-import {Profile} from '../screens/Profile';
+import {WatchIndicator} from '../features/watchlist/components';
+import {Home, Profile} from '../screens';
 import {NavParamMap} from '../types';
-import {NavDarkTheme, NavLightTheme} from '../theme';
-import {useColorSchemeSelect} from '../hooks/appearance';
-import {WatchIndicator} from '../features/watchlist/components/WatchStatus';
+import {
+  useColorSchemeSelect,
+  useColorTheme,
+  NavDarkTheme,
+  NavLightTheme,
+} from '../theme';
 
 const MainNavigator = createStackNavigator<NavParamMap>();
 
 export const RootNavigator = () => {
-  const NavTheme = useColorSchemeSelect({
+  const NavTheme = useColorSchemeSelect<Theme>({
     light: NavLightTheme,
     dark: NavDarkTheme,
   });
+
+  const colors = useColorTheme();
 
   return (
     <NavigationContainer theme={NavTheme}>
       <MainNavigator.Navigator
         screenOptions={{
-          headerBackTitleVisible: false,
           headerTitle: '',
-          headerStyle: {backgroundColor: 'transparent'},
+          headerBackTitleVisible: false,
+          headerStyle: {backgroundColor: colors.transparent},
         }}>
         <MainNavigator.Screen name="Home" component={Home} />
         <MainNavigator.Screen

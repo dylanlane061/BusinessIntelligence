@@ -1,10 +1,27 @@
 import React from 'react';
-import {StyleProp, Text, ViewStyle} from 'react-native';
+import {
+  processColor,
+  StyleProp,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from 'react-native';
 import {BellaBarChart, ChartSelectEvent} from 'react-native-bella-charts';
+
+import {AppTheme, useColorTheme, useStylesForAppTheme} from '../../../theme';
 import {COMMON_CHART_PROPS} from '../../../constants';
-import {CHART_COLORS} from '../../../theme';
-import {useWatchlist} from '../context';
 import {WatchlistChartEntryData} from '../../../types';
+import {useWatchlist} from '../context';
+
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    title: {
+      marginTop: theme.spacing.large,
+      marginLeft: theme.spacing.large,
+      fontSize: 16,
+      fontWeight: '300',
+    },
+  });
 
 type WatchlistGraphProps = {
   style: StyleProp<ViewStyle>;
@@ -14,13 +31,14 @@ type WatchlistGraphProps = {
 const DATA_CONFIG = {
   formatAsPrice: true,
   valueTextSize: 14,
-  valueTextColor: CHART_COLORS.text,
 };
 
 export const WatchlistBarGraph = (props: WatchlistGraphProps) => {
   const {onEntrySelect, style} = props;
 
   const watchlist = useWatchlist();
+  const colors = useColorTheme();
+  const styles = useStylesForAppTheme(createStyles);
 
   const onSelect = (e: ChartSelectEvent<WatchlistChartEntryData>) => {
     const eventData = e.nativeEvent.data;
@@ -29,15 +47,7 @@ export const WatchlistBarGraph = (props: WatchlistGraphProps) => {
 
   return (
     <>
-      <Text
-        style={{
-          marginTop: 24,
-          marginLeft: 16,
-          fontSize: 16,
-          fontWeight: '300',
-        }}>
-        Total Revenue (6 months)
-      </Text>
+      <Text style={styles.title}>Total Revenue (6 months)</Text>
       <BellaBarChart
         {...COMMON_CHART_PROPS}
         style={style}
@@ -45,7 +55,10 @@ export const WatchlistBarGraph = (props: WatchlistGraphProps) => {
           dataSets: [
             {
               values: watchlist.chartData,
-              config: DATA_CONFIG,
+              config: {
+                ...DATA_CONFIG,
+                valueTextColor: processColor(colors.text),
+              },
             },
           ],
         }}

@@ -1,16 +1,6 @@
 import React from 'react';
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
-import {getContrastColor, getRandomHexColor} from '../utils/colors';
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontWeight: 'bold',
-  },
-});
+import {getContrastColor, getRandomHexColor} from '../utils';
 
 type AvatarProps = {
   name: string;
@@ -18,6 +8,11 @@ type AvatarProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * @descripion
+ * Renders a circle with randomly generated background color
+ * and the given names first letter.
+ */
 export const Avatar = (props: AvatarProps) => {
   const {name, size = 30} = props;
 
@@ -42,3 +37,13 @@ export const Avatar = (props: AvatarProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontWeight: 'bold',
+  },
+});

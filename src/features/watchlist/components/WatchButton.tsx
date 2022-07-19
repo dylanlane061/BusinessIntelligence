@@ -1,23 +1,9 @@
 import React from 'react';
 import {Pressable, StyleProp, StyleSheet, Text, ViewStyle} from 'react-native';
-import {APP_COLORS} from '../../../theme';
-import {useWatchlist} from '../context';
-import {Company} from '../../../types';
-import {getContrastColor} from '../../../utils/colors';
 
-const styles = StyleSheet.create({
-  base: {
-    padding: 16,
-    borderRadius: 30,
-    alignItems: 'center',
-  },
-  pressed: {opacity: 0.5},
-  text: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
+import {Company} from '../../../types';
+import {useColorTheme} from '../../../theme';
+import {useWatchlist} from '../context';
 
 type WatchButtonProps = {
   company: Company;
@@ -27,6 +13,7 @@ type WatchButtonProps = {
 export const WatchButton = (props: WatchButtonProps) => {
   const {company, style} = props;
 
+  const colors = useColorTheme();
   const watchlist = useWatchlist();
 
   const watching = !!watchlist.companies.find(
@@ -42,7 +29,7 @@ export const WatchButton = (props: WatchButtonProps) => {
     watchlist.add(company);
   };
 
-  const bgColor = watching ? APP_COLORS.negative : APP_COLORS.positive;
+  const bgColor = watching ? colors.negative : colors.positive;
 
   return (
     <Pressable
@@ -53,9 +40,22 @@ export const WatchButton = (props: WatchButtonProps) => {
         pressed && styles.pressed,
       ]}
       onPress={onPress}>
-      <Text style={[styles.text]}>
+      <Text style={styles.text}>
         {watching ? 'Stop Watching' : 'Start Watching'}
       </Text>
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  base: {
+    padding: 16,
+    borderRadius: 30,
+    alignItems: 'center',
+  },
+  pressed: {opacity: 0.5},
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});

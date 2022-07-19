@@ -10,17 +10,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pulse: {
-    position: 'absolute',
-  },
-});
-
 type PulseProps = PropsWithChildren<{
   active: boolean;
   size: number;
@@ -28,6 +17,10 @@ type PulseProps = PropsWithChildren<{
   style?: StyleProp<ViewStyle>;
 }>;
 
+/**
+ * @description
+ * Pulses colored circle around children.
+ */
 export const Pulse = (props: PulseProps) => {
   const {active, size, color, style, children} = props;
 
@@ -80,3 +73,14 @@ export const Pulse = (props: PulseProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pulse: {
+    position: 'absolute',
+  },
+});

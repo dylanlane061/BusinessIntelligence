@@ -9,27 +9,11 @@ import {
   ViewStyle,
 } from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {Company, NavParamMap} from '../types';
-import {Avatar} from './Avatar';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const styles = StyleSheet.create({
-  itemRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  infoColumn: {
-    marginLeft: 8,
-  },
-  pressedStyle: {
-    opacity: 0.5,
-  },
-});
+import {Company, NavParamMap} from '../types';
+import {AppTheme, useStylesForAppTheme} from '../theme';
+import {Avatar} from './Avatar';
 
 type CompanyItemProps = {
   company: Company;
@@ -43,10 +27,16 @@ export const propsAreEqual = (
   return prev.style === next.style && prev.company.id === next.company.id;
 };
 
+/**
+ * @description
+ * Renders company row with avatar, name, and address.
+ * Navigates to profile on press.
+ */
 export const CompanyItem = memo((props: CompanyItemProps) => {
   const {company, style} = props;
 
   const {navigate} = useNavigation<NavigationProp<NavParamMap>>();
+  const styles = useStylesForAppTheme(createStyles);
 
   const determineStyle = ({pressed}: PressableStateCallbackType) => [
     styles.itemRow,
@@ -62,14 +52,37 @@ export const CompanyItem = memo((props: CompanyItemProps) => {
         <Avatar name={company.name} size={40} />
 
         <View style={styles.infoColumn}>
-          <Text>{company.name}</Text>
-          <Text>
+          <Text style={styles.name}>{company.name}</Text>
+          <Text style={styles.address}>
             {company.location.address}, {company.location.city}
           </Text>
         </View>
       </View>
 
-      <Text>{'>'}</Text>
+      <Icon name="chevron-right" style={styles.drilldownIcon} />
     </Pressable>
   );
 }, propsAreEqual);
+
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    itemRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: theme.spacing.medium,
+      justifyContent: 'space-between',
+    },
+    infoRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    infoColumn: {
+      marginLeft: theme.spacing.small,
+    },
+    name: {marginBottom: theme.spacing.tiny, color: theme.colors.text},
+    address: {color: theme.colors.text},
+    drilldownIcon: {fontSize: 24, color: theme.colors.text},
+    pressedStyle: {
+      opacity: 0.5,
+    },
+  });

@@ -5,8 +5,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Company} from '../types';
 import {getCompanies} from '../services/api';
-import {Watchlist} from '../features/watchlist/components/Watchlist';
-import {CompanyItem} from '../components/CompanyItem';
+import {CompanyItem} from '../components';
+import {Watchlist} from '../features/watchlist/components';
 
 const companyKeyExtractor = (item: Company, _: number) => String(item.id);
 
@@ -14,6 +14,7 @@ const renderItem = ({item}: {item: Company}) => <CompanyItem company={item} />;
 
 export const Home = () => {
   const {bottom} = useSafeAreaInsets();
+  // Benefit from session caching and simple status booleans with useQuery here
   const companies = useQuery<Company[], Error>('companies', getCompanies);
 
   return (

@@ -1,7 +1,5 @@
-import dayjs from 'dayjs';
 import {Company, WatchlistChartEntry, RevenueRecord} from '../../types';
 import {priceFormatter} from '../../utils/formatters';
-import {INPUT_DATE_FORMAT, OUTPUT_DATE_FORMAT} from '../../constants';
 
 const sumRecordValue = (total: number, record: RevenueRecord) =>
   total + record.value;

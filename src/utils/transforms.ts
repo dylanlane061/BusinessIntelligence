@@ -4,6 +4,11 @@ import {priceFormatter} from './formatters';
 import {INPUT_DATE_FORMAT, OUTPUT_DATE_FORMAT} from '../constants';
 
 // Revenue Transform
+/**
+ * @description
+ * Sorting function for ordering revenue records
+ * by date using dayjs
+ */
 export const sortByRecordDate = (
   recordA: RevenueRecord,
   recordB: RevenueRecord,
@@ -13,12 +18,17 @@ export const sortByRecordDate = (
   return dateA.isBefore(dateB) ? -1 : 1;
 };
 
+/**
+ * @description
+ * Creates chart entry from given revenue record. This
+ * is the format required for the line graph
+ */
 export const createRevenueChartEntry = (
   record: RevenueRecord,
   index: number,
 ): RevenueChartEntry => {
-  console.log('calculating createRevenueChartEntry');
   const date = dayjs(record.date, INPUT_DATE_FORMAT);
+
   return {
     x: index + 1,
     y: record.value,
@@ -31,12 +41,21 @@ export const createRevenueChartEntry = (
   };
 };
 
+/**
+ * @description
+ * Sorts & transforms raw revenue records in data ready to be
+ * used with the RevenueLineGraph
+ */
 export const createRevenueChartData = async (revenue: RevenueRecord[]) =>
   revenue
     .sort(sortByRecordDate)
     .map(createRevenueChartEntry) as RevenueChartEntry[];
 
 // Generic Utils
+/**
+ * @description
+ * Calculates trend information for a given first and last value
+ */
 export const calculateTrend = (firstValue: number, lastValue: number) => {
   const diff = lastValue - firstValue;
 
@@ -48,6 +67,10 @@ export const calculateTrend = (firstValue: number, lastValue: number) => {
   };
 };
 
+/**
+ * @description
+ * For a given list, returns the first and last items
+ */
 export const getListRange = <T>(list: T[]) => {
   if (!list.length) return [undefined, undefined];
 

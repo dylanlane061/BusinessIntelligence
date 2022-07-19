@@ -1,49 +1,31 @@
 import React, {useMemo, useState} from 'react';
 import {useQuery} from 'react-query';
-import {StyleSheet, Text, View} from 'react-native';
+import {processColor, StyleSheet, Text, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {NavParamMap, RevenueChartEntryData} from '../types';
+import {calculateTrend, createRevenueChartData, getListRange} from '../utils';
+import {AppTheme, useColorTheme, useStylesForAppTheme} from '../theme';
 import {REVENUE_FILTER_CHIPS, DEFAULT_FILTER_CHIP} from '../constants';
-import {CHART_COLORS} from '../theme';
+import {NavParamMap, RevenueChartEntryData} from '../types';
+import {WatchButton} from '../features/watchlist/components';
 import {
-  calculateTrend,
-  createRevenueChartData,
-  getListRange,
-} from '../utils/transforms';
-import {Avatar} from '../components/Avatar';
-import {Chip, FilterChips} from '../components/FilterChips';
-import {WatchButton} from '../features/watchlist/components/WatchButton';
-import {RevenueLineGraph} from '../components/RevenueLineGraph';
-import {Trend} from '../components/Trend';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  companyInfo: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-  },
-  title: {
-    fontSize: 32,
-    marginTop: 4,
-    marginBottom: 8,
-  },
-  filters: {marginTop: 16},
-  watchButton: {
-    marginHorizontal: 16,
-    marginTop: 'auto',
-  },
-});
+  Avatar,
+  Trend,
+  Chip,
+  FilterChips,
+  RevenueLineGraph,
+} from '../components';
 
 export const Profile = () => {
   const route = useRoute<RouteProp<NavParamMap, 'Profile'>>();
   const {name, revenue} = route.params;
 
+  const styles = useStylesForAppTheme(createStyles);
+  const colors = useColorTheme();
+
   const [highlighted, setHighlighted] = useState<RevenueChartEntryData>();
-  const [selectedChip, setSelectedChip] = useState<Chip>(DEFAULT_FILTER_CHIP);
+  const [filter, setFilter] = useState<Chip>(DEFAULT_FILTER_CHIP);
 
   // For automatic session caching we'll calculate chart data with useQuery
   // staleTime as Infinity since we know this data is staic
@@ -58,8 +40,8 @@ export const Profile = () => {
 
   // The range visible is determined by the selected filter chip
   const visibleData = useMemo(
-    () => data.slice(0, selectedChip.value as number),
-    [selectedChip, data.length],
+    () => data.slice(0, filter.value as number),
+    [filter, data.length],
   );
 
   const [firstEntry, lastEntry] = useMemo(
@@ -86,28 +68,26 @@ export const Profile = () => {
       <View style={styles.companyInfo}>
         <Avatar name={name} size={50} />
         <Text style={styles.title}>{name}</Text>
-        <Text style={styles.title}>{currentValue}</Text>
+        <Text style={styles.value}>{currentValue}</Text>
         <Trend
           firstValue={firstEntry?.data?.value}
           lastValue={highlighted?.value || lastEntry?.data?.value}
-          timeFrame={
-            highlighted ? undefined : `Past ${selectedChip.value} months`
-          }
+          timeFrame={highlighted ? undefined : `Past ${filter.value} months`}
         />
       </View>
 
       <RevenueLineGraph
         data={visibleData}
         onEntrySelect={setHighlighted}
-        color={
-          rangeTrend?.increasing ? CHART_COLORS.positive : CHART_COLORS.negative
-        }
+        color={processColor(
+          rangeTrend?.increasing ? colors.positive : colors.negative,
+        )}
       />
 
       <FilterChips
         chips={REVENUE_FILTER_CHIPS}
-        selected={selectedChip}
-        onSelect={setSelectedChip}
+        selected={filter}
+        onSelect={setFilter}
         style={styles.filters}
       />
 
@@ -115,3 +95,30 @@ export const Profile = () => {
     </SafeAreaView>
   );
 };
+
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    companyInfo: {
+      marginVertical: theme.spacing.medium,
+      marginHorizontal: theme.spacing.large,
+    },
+    title: {
+      fontSize: 24,
+      color: theme.colors.text,
+      marginTop: theme.spacing.medium,
+    },
+    value: {
+      fontSize: 32,
+      color: theme.colors.text,
+      marginVertical: theme.spacing.small,
+      fontWeight: '300',
+    },
+    filters: {marginTop: theme.spacing.medium},
+    watchButton: {
+      marginTop: 'auto',
+      marginHorizontal: theme.spacing.medium,
+    },
+  });

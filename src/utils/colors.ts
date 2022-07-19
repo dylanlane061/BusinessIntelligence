@@ -1,8 +1,11 @@
 const ColorSessionCache: {[key: string]: string} = {};
 
-// Generate random color. Including id memoization purposes. We want a companies
-// color to remain consistent...but its not worth iterating over the list to add
-// it...just for my asethic choices :)
+/**
+ * @description
+ * Generate random color. Including id memoization purposes. We want a companies
+ * color to remain consistent...but its not worth iterating over the list to add
+ * it...just for my asethic choices :)
+ */
 export const getRandomHexColor = (id: string) => {
   if (ColorSessionCache[id]) return ColorSessionCache[id];
 
@@ -11,8 +14,11 @@ export const getRandomHexColor = (id: string) => {
   return color;
 };
 
-// For a given hex color, generate its contrast color for text
-// appearingon top of it
+/**
+ * @description
+ * For a given hex color, generate its contrast color for text
+ * appearing on top of it
+ */
 export const getContrastColor = (hex: string) => {
   const value = hex.replace('#', '');
   var r = parseInt(value.substring(0, 2), 16);

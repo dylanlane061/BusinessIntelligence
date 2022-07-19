@@ -7,19 +7,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {APP_COLORS} from '../theme';
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  chip: {
-    padding: 8,
-    borderRadius: 8,
-    marginHorizontal: 16,
-  },
-});
+import {AppTheme, useStylesForAppTheme} from '../theme';
+import {getContrastColor} from '../utils';
 
 export type Chip = {id: number; value: string | number; label: string};
 
@@ -30,25 +19,53 @@ type FilterChipProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * @description
+ * Renders list of chips intended to be used as a filter.
+ * Selected chip given will be highlighted.
+ */
 export const FilterChips = (props: FilterChipProps) => {
   const {chips, selected, onSelect, style} = props;
 
+  const styles = useStylesForAppTheme(createStyles);
+
   return (
     <View style={[styles.container, style]}>
-      {chips.map(chip => (
-        <Pressable
-          key={chip.id}
-          onPress={useCallback(() => onSelect(chip), [])}
-          style={[
-            styles.chip,
-            {
-              backgroundColor:
-                chip.id === selected.id ? APP_COLORS.highlight : undefined,
-            },
-          ]}>
-          <Text>{chip.label}</Text>
-        </Pressable>
-      ))}
+      {chips.map(chip => {
+        const isSelected = chip.id === selected.id;
+        return (
+          <Pressable
+            key={chip.id}
+            onPress={useCallback(() => onSelect(chip), [])}
+            style={[styles.chip, isSelected && styles.selected]}>
+            <Text style={[styles.label, isSelected && styles.labelSelected]}>
+              {chip.label}
+            </Text>
+          </Pressable>
+        );
+      })}
     </View>
   );
 };
+
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    chip: {
+      borderRadius: 8,
+      padding: theme.spacing.small,
+      marginHorizontal: theme.spacing.large,
+    },
+    selected: {
+      backgroundColor: theme.colors.primary,
+    },
+    label: {
+      color: theme.colors.text,
+    },
+    labelSelected: {
+      color: getContrastColor(theme.colors.primary),
+    },
+  });

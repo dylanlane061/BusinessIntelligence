@@ -1,28 +1,7 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {APP_COLORS} from '../theme';
-import {calculateTrend} from '../utils/transforms';
-import {priceFormatter} from '../utils/formatters';
-
-const styles = StyleSheet.create({
-  trendRow: {
-    flexDirection: 'row',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  textPositive: {
-    color: APP_COLORS.positive,
-  },
-  textNegative: {
-    color: APP_COLORS.negative,
-  },
-  timeframe: {
-    fontSize: 14,
-    fontWeight: '400',
-  },
-});
+import {calculateTrend, priceFormatter} from '../utils';
+import {AppTheme, useStylesForAppTheme} from '../theme';
 
 type TrendProps = {
   firstValue?: number;
@@ -30,8 +9,14 @@ type TrendProps = {
   timeFrame?: string;
 };
 
+/**
+ * @description
+ * Shows trend information from a given first & last value.
+ */
 export const Trend = (props: TrendProps) => {
   const {firstValue, lastValue, timeFrame} = props;
+
+  const styles = useStylesForAppTheme(createStyles);
 
   const trend = useMemo(() => {
     if (!firstValue || !lastValue) return null;
@@ -39,16 +24,40 @@ export const Trend = (props: TrendProps) => {
   }, [firstValue, lastValue]);
 
   return trend ? (
-    <View style={styles.trendRow}>
-      <Text>{trend.decreasing ? '-' : '+'}</Text>
+    <View style={styles.row}>
+      <Text style={styles.icon}>{trend.decreasing ? '-' : '+'}</Text>
       <Text style={styles.text}>
-        <Text
-          style={trend.decreasing ? styles.textNegative : styles.textPositive}>
-          {priceFormatter.abbreviated(Math.abs(trend.value))} (
-          {trend.percentage}%)
+        <Text style={[trend.decreasing ? styles.negative : styles.positive]}>
+          {priceFormatter.compact(Math.abs(trend.value))} ({trend.percentage}%)
         </Text>{' '}
         {!!timeFrame && <Text style={styles.timeframe}>{timeFrame}</Text>}
       </Text>
     </View>
   ) : null;
 };
+
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+    },
+    icon: {
+      color: theme.colors.text,
+    },
+    text: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: theme.colors.text,
+    },
+    timeframe: {
+      fontSize: 14,
+      fontWeight: '400',
+      color: theme.colors.text,
+    },
+    positive: {
+      color: theme.colors.positive,
+    },
+    negative: {
+      color: theme.colors.negative,
+    },
+  });
