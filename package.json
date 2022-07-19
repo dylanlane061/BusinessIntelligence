@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./app",
-    "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
+    "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
+    "postinstall": "solidarity"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -23,7 +24,9 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-vector-icons": "^9.2.0",
-    "react-query": "^3.39.1"
+    "react-query": "^3.39.1",
+    "solidarity": "^2.3.1",
+    "solidarity-react-native": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",

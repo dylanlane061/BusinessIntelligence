@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json.schemastore.org/solidaritySchema",
+  "requirements": {
+    "Node": [
+      {
+        "rule": "cli",
+        "binary": "node",
+        "semver": "17.5.0"
+      }
+    ],
+    "Watchman": [
+      {
+        "rule": "cli",
+        "binary": "watchman",
+        "error": "Please install watchman on this machine. Refer to the official Watchman installation instructions for additional help.",
+        "platform": [
+          "darwin",
+          "linux"
+        ]
+      }
+    ],
+    "React Native": [
+      {
+        "rule": "cli",
+        "binary": "react-native",
+        "semver": "6.4.0"
+      },
+      {
+        "rule": "cli",
+        "binary": "react-native",
+        "semver": "0.0.0",
+        "line": 2
+      }
+    ],
+    "Package JSON": [
+      {
+        "rule": "file",
+        "location": "./package.json"
+      }
+    ],
+    "NPM": [
+      {
+        "rule": "cli",
+        "binary": "npm",
+        "semver": "8.4.1"
+      }
+    ],
+    "Yarn": [
+      {
+        "rule": "cli",
+        "binary": "yarn",
+        "version": "--version",
+        "semver": "1.22.19"
+      }
+    ],
+    "CocoaPods": [
+      {
+        "rule": "cli",
+        "binary": "pod",
+        "platform": "darwin",
+        "semver": "1.11.2"
+      },
+      {
+        "rule": "dir",
+        "location": "./ios/Pods"
+      }
+    ],
+    "Xcode": [
+      {
+        "rule": "cli",
+        "binary": "xcodebuild",
+        "semver": "13.4.1",
+        "platform": "darwin"
+      },
+      {
+        "rule": "cli",
+        "binary": "xcrun",
+        "semver": "61",
+        "platform": "darwin"
+      }
+    ]
+  }
+}
