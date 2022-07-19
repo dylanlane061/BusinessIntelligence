@@ -8,7 +8,7 @@ Also supports dark mode!
 
 Sadly, no Android support for the graphs yet.
 
-![](BusinessIntelligence.gif)
+![](Demo.gif)
 
 ## Setup
 
