@@ -77,7 +77,7 @@ const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     infoColumn: {
-      marginLeft: theme.spacing.small,
+      marginLeft: theme.spacing.medium,
     },
     name: {marginBottom: theme.spacing.tiny, color: theme.colors.text},
     address: {color: theme.colors.text},

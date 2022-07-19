@@ -24,7 +24,7 @@ export const Watchlist = (props: WatchlistProps) => {
   const {style} = props;
 
   const watchlist = useWatchlist();
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [highlighted, setHighlighted] = useState<WatchlistChartEntryData>();
   const styles = useStylesForAppTheme(createStyles);
 
