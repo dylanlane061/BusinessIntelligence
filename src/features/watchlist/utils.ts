@@ -1,5 +1,5 @@
-import {Company, WatchlistChartEntry, RevenueRecord} from '../../types';
-import {priceFormatter} from '../../utils/formatters';
+import {Company, WatchlistChartEntry, RevenueRecord} from '~types';
+import {standardPrice} from '~utils';
 
 const sumRecordValue = (total: number, record: RevenueRecord) =>
   total + record.value;
@@ -16,7 +16,7 @@ export const createWatchlistChartEntry = (
     data: {
       id: record.id,
       name: record.name,
-      total: priceFormatter.standard(total),
+      total: standardPrice.format(total),
     },
   };
 };

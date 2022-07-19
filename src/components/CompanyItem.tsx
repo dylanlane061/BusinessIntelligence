@@ -11,9 +11,9 @@ import {
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {Company, NavParamMap} from '../types';
-import {AppTheme, useStylesForAppTheme} from '../theme';
 import {Avatar} from './Avatar';
+import {Company, NavParamMap} from '~types';
+import {AppTheme, useStylesForAppTheme} from '~theme';
 
 type CompanyItemProps = {
   company: Company;

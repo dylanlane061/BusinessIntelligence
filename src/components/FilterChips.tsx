@@ -7,8 +7,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {AppTheme, useStylesForAppTheme} from '../theme';
-import {getContrastColor} from '../utils';
+import {AppTheme, useStylesForAppTheme} from '~theme';
+import {getContrastColor} from '~utils';
 
 export type Chip = {id: number; value: string | number; label: string};
 

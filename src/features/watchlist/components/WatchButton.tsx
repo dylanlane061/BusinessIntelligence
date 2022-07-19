@@ -1,8 +1,8 @@
 import React from 'react';
 import {Pressable, StyleProp, StyleSheet, Text, ViewStyle} from 'react-native';
 
-import {Company} from '../../../types';
-import {useColorTheme} from '../../../theme';
+import {Company} from '~types';
+import {useColorTheme} from '~theme';
 import {useWatchlist} from '../context';
 
 type WatchButtonProps = {

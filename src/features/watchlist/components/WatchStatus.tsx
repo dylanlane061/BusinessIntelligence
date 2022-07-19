@@ -3,9 +3,9 @@ import {StyleProp, ViewStyle} from 'react-native';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {useColorTheme} from '../../../theme';
-import {Pulse} from '../../../components';
-import {Company} from '../../../types';
+import {Company} from '~types';
+import {Pulse} from '~components';
+import {useColorTheme} from '~theme';
 import {useWatchlist} from '../context';
 
 type WatchIndicatorProps = {

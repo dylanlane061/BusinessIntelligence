@@ -5,8 +5,8 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import {Company, WatchlistChartEntry} from '~types';
 import {createWatchlistChartData} from './utils';
-import {Company, WatchlistChartEntry} from '../../types';
 
 export type WatchlistStore = {
   companies: Company[];
@@ -18,8 +18,8 @@ export type WatchlistStore = {
 const WatchlistContext = createContext<WatchlistStore>({
   companies: [],
   chartData: [],
-  add: () => {},
-  remove: () => {},
+  add: () => null,
+  remove: () => null,
 });
 
 export const WatchlistProvider = (props: PropsWithChildren<{}>) => {

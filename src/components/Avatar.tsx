@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
-import {getContrastColor, getRandomHexColor} from '../utils';
+import {getContrastColor, getRandomHexColor} from '~utils';
 
 type AvatarProps = {
   name: string;

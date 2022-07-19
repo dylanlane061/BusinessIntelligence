@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {calculateTrend, priceFormatter} from '../utils';
-import {AppTheme, useStylesForAppTheme} from '../theme';
+import {calculateTrend, compactPrice} from '~utils';
+import {AppTheme, useStylesForAppTheme} from '~theme';
 
 type TrendProps = {
   firstValue?: number;
@@ -19,7 +19,9 @@ export const Trend = (props: TrendProps) => {
   const styles = useStylesForAppTheme(createStyles);
 
   const trend = useMemo(() => {
-    if (!firstValue || !lastValue) return null;
+    if (!firstValue || !lastValue) {
+      return null;
+    }
     return calculateTrend(firstValue, lastValue);
   }, [firstValue, lastValue]);
 
@@ -28,7 +30,7 @@ export const Trend = (props: TrendProps) => {
       <Text style={styles.icon}>{trend.decreasing ? '-' : '+'}</Text>
       <Text style={styles.text}>
         <Text style={[trend.decreasing ? styles.negative : styles.positive]}>
-          {priceFormatter.compact(Math.abs(trend.value))} ({trend.percentage}%)
+          {compactPrice.format(Math.abs(trend.value))} ({trend.percentage}%)
         </Text>{' '}
         {!!timeFrame && <Text style={styles.timeframe}>{timeFrame}</Text>}
       </Text>

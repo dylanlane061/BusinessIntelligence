@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {AppTheme, useStylesForAppTheme} from '../../../theme';
-import {WatchlistChartEntryData} from '../../../types';
-import {CompanyItem} from '../../../components';
+import {CompanyItem} from '~components';
 import {useWatchlist} from '../context';
+import {WatchlistChartEntryData} from '~types';
+import {AppTheme, useStylesForAppTheme} from '~theme';
 import {WatchlistBarGraph} from './WatchlistBarGraph';
 
 type WatchlistProps = {
@@ -80,8 +80,8 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       borderBottomWidth: 1,
-      paddingBottom: theme.spacing.large,
       marginBottom: theme.spacing.large,
+      paddingBottom: theme.spacing.large,
       borderBottomColor: theme.colors.line,
       backgroundColor: theme.colors.background,
     },
@@ -109,5 +109,5 @@ export const createStyles = (theme: AppTheme) =>
     highlightedItem: {
       backgroundColor: theme.colors.highlight,
     },
-    graph: {height: 200},
+    graph: {height: 150},
   });

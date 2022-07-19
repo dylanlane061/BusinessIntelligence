@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import {RevenueChartEntry, RevenueRecord} from '../types';
-import {priceFormatter} from './formatters';
-import {INPUT_DATE_FORMAT, OUTPUT_DATE_FORMAT} from '../constants';
+import {RevenueChartEntry, RevenueRecord} from '~types';
+import {INPUT_DATE_FORMAT, OUTPUT_DATE_FORMAT} from '~constants';
+import {standardPrice} from './formatters';
 
 // Revenue Transform
 /**
@@ -36,7 +36,7 @@ export const createRevenueChartEntry = (
     data: {
       ...record,
       dateLabel: date.format(OUTPUT_DATE_FORMAT),
-      valueLabel: priceFormatter.standard(record.value),
+      valueLabel: standardPrice.format(record.value),
     },
   };
 };
@@ -46,24 +46,26 @@ export const createRevenueChartEntry = (
  * Sorts & transforms raw revenue records in data ready to be
  * used with the RevenueLineGraph
  */
-export const createRevenueChartData = async (revenue: RevenueRecord[]) =>
-  revenue
-    .sort(sortByRecordDate)
-    .map(createRevenueChartEntry) as RevenueChartEntry[];
+export const createRevenueChartData = (
+  revenue: RevenueRecord[],
+): RevenueChartEntry[] =>
+  revenue.sort(sortByRecordDate).map(createRevenueChartEntry);
 
 // Generic Utils
 /**
  * @description
  * Calculates trend information for a given first and last value
  */
-export const calculateTrend = (firstValue: number, lastValue: number) => {
+export const calculateTrend = (firstValue = 0, lastValue = 0) => {
   const diff = lastValue - firstValue;
 
   return {
     value: diff,
     increasing: diff > 0,
     decreasing: diff < 0,
-    percentage: ((100 * diff) / ((firstValue + lastValue) / 2)).toFixed(2),
+    percentage: !diff
+      ? 0
+      : ((100 * diff) / ((firstValue + lastValue) / 2)).toFixed(2),
   };
 };
 
@@ -72,7 +74,9 @@ export const calculateTrend = (firstValue: number, lastValue: number) => {
  * For a given list, returns the first and last items
  */
 export const getListRange = <T>(list: T[]) => {
-  if (!list.length) return [undefined, undefined];
+  if (!list.length) {
+    return [undefined, undefined];
+  }
 
   return [list[0], list[list.length - 1]];
 };

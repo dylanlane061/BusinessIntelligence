@@ -4,18 +4,12 @@ import {processColor, StyleSheet, Text, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {calculateTrend, createRevenueChartData, getListRange} from '../utils';
-import {AppTheme, useColorTheme, useStylesForAppTheme} from '../theme';
-import {REVENUE_FILTER_CHIPS, DEFAULT_FILTER_CHIP} from '../constants';
-import {NavParamMap, RevenueChartEntryData} from '../types';
-import {WatchButton} from '../features/watchlist/components';
-import {
-  Avatar,
-  Trend,
-  Chip,
-  FilterChips,
-  RevenueLineGraph,
-} from '../components';
+import {WatchButton} from '~features/watchlist';
+import {NavParamMap, RevenueChartEntryData} from '~types';
+import {AppTheme, useColorTheme, useStylesForAppTheme} from '~theme';
+import {REVENUE_FILTER_CHIPS, DEFAULT_FILTER_CHIP} from '~constants';
+import {calculateTrend, createRevenueChartData, getListRange} from '~utils';
+import {Avatar, Trend, Chip, FilterChips, RevenueLineGraph} from '~components';
 
 export const Profile = () => {
   const route = useRoute<RouteProp<NavParamMap, 'Profile'>>();
@@ -41,7 +35,7 @@ export const Profile = () => {
   // The range visible is determined by the selected filter chip
   const visibleData = useMemo(
     () => data.slice(0, filter.value as number),
-    [filter, data.length],
+    [filter, data],
   );
 
   const [firstEntry, lastEntry] = useMemo(
@@ -51,14 +45,15 @@ export const Profile = () => {
 
   // Overall trend for the selected range
   const rangeTrend = useMemo(() => {
-    if (visibleData.length === 0) return null;
+    if (!firstEntry || !lastEntry) {
+      return null;
+    }
 
-    // First & last values are guaranteed at this point
-    const firstValue = firstEntry!.data!.value;
-    const lastValue = lastEntry!.data!.value;
+    const firstValue = firstEntry.data?.value;
+    const lastValue = lastEntry.data?.value;
 
     return calculateTrend(firstValue, lastValue);
-  }, [visibleData.length]);
+  }, [firstEntry, lastEntry]);
 
   // Prioritize highlight, fallback to most recent entry
   const currentValue = highlighted?.valueLabel || lastEntry?.data?.valueLabel;

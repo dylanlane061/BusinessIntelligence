@@ -8,16 +8,16 @@ import {
 } from 'react-native';
 import {BellaBarChart, ChartSelectEvent} from 'react-native-bella-charts';
 
-import {AppTheme, useColorTheme, useStylesForAppTheme} from '../../../theme';
-import {COMMON_CHART_PROPS} from '../../../constants';
-import {WatchlistChartEntryData} from '../../../types';
 import {useWatchlist} from '../context';
+import {COMMON_CHART_PROPS} from '~constants';
+import {WatchlistChartEntryData} from '~types';
+import {AppTheme, useColorTheme, useStylesForAppTheme} from '~theme';
 
 const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     title: {
       marginTop: theme.spacing.large,
-      marginLeft: theme.spacing.large,
+      marginLeft: theme.spacing.medium,
       fontSize: 16,
       fontWeight: '300',
     },
@@ -61,6 +61,9 @@ export const WatchlistBarGraph = (props: WatchlistGraphProps) => {
               },
             },
           ],
+          config: {
+            barWidth: watchlist.chartData.length < 4 ? 0.5 : undefined,
+          },
         }}
         onSelect={onSelect}
       />

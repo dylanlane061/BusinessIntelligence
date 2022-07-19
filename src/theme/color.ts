@@ -32,7 +32,7 @@ export const colorLight = {
   background: palette.white,
   text: palette.black,
   line: palette.lightGrey,
-  highlight: palette.blue,
+  highlight: palette.lighterGrey,
 };
 
 // Colors while in dark mode

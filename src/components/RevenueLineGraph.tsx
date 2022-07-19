@@ -2,9 +2,9 @@ import React from 'react';
 import {ProcessedColorValue, processColor} from 'react-native';
 import {BellaLineChart, ChartSelectEvent} from 'react-native-bella-charts';
 
-import {RevenueChartEntry, RevenueChartEntryData} from '../types';
-import {COMMON_CHART_PROPS} from '../constants';
-import {useColorTheme} from '../theme';
+import {RevenueChartEntry, RevenueChartEntryData} from '~types';
+import {COMMON_CHART_PROPS} from '~constants';
+import {useColorTheme} from '~theme';
 
 type RevenueLineGraphProps = {
   data: RevenueChartEntry[];
