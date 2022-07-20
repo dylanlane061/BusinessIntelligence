@@ -1,26 +1,34 @@
 import * as React from 'react';
-import {NavigationContainer, Theme} from '@react-navigation/native';
+import {NavigationContainer, RouteProp, Theme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {WatchIndicator} from '../features/watchlist/components';
-import {Home, Profile} from '../screens';
-import {NavParamMap} from '../types';
 import {
   useColorSchemeSelect,
-  useColorTheme,
   NavDarkTheme,
   NavLightTheme,
-} from '../theme';
+  useAppTheme,
+} from '~theme';
+import {NavParamMap} from '~types';
+import {Home, Profile} from '~screens';
+import {WatchIndicator} from '~features/watchlist';
 
 const MainNavigator = createStackNavigator<NavParamMap>();
 
+const ProfileNavOptions = ({
+  route,
+}: {
+  route: RouteProp<NavParamMap, 'Profile'>;
+}) => ({
+  headerRight: () => <WatchIndicator company={route.params} />,
+});
+
 export const RootNavigator = () => {
+  const {colors, spacing} = useAppTheme();
+
   const NavTheme = useColorSchemeSelect<Theme>({
     light: NavLightTheme,
     dark: NavDarkTheme,
   });
-
-  const colors = useColorTheme();
 
   return (
     <NavigationContainer theme={NavTheme}>
@@ -28,20 +36,21 @@ export const RootNavigator = () => {
         screenOptions={{
           headerTitle: '',
           headerBackTitleVisible: false,
-          headerStyle: {backgroundColor: colors.transparent},
+          headerLeftContainerStyle: {
+            left: spacing.medium,
+          },
+          headerRightContainerStyle: {
+            right: spacing.large,
+          },
+          headerStyle: {
+            backgroundColor: colors.transparent,
+          },
         }}>
         <MainNavigator.Screen name="Home" component={Home} />
         <MainNavigator.Screen
           name="Profile"
           component={Profile}
-          options={({route}) => ({
-            headerRight: () => (
-              <WatchIndicator
-                company={route.params}
-                style={{marginRight: 16}}
-              />
-            ),
-          })}
+          options={ProfileNavOptions}
         />
       </MainNavigator.Navigator>
     </NavigationContainer>

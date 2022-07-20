@@ -34,7 +34,7 @@ export const useColorScheme = () => {
  * @description
  * Selects value based on the current color scheme
  */
-export const useColorSchemeSelect = <T = any>(config: {dark: T; light: T}) => {
+export const useColorSchemeSelect = <T>(config: {dark: T; light: T}) => {
   const colorScheme = useColorScheme();
   const key = colorScheme || 'light';
   return config[key];

@@ -22,7 +22,9 @@ const WatchlistContext = createContext<WatchlistStore>({
   remove: () => null,
 });
 
-export const WatchlistProvider = (props: PropsWithChildren<{}>) => {
+export const WatchlistProvider = (
+  props: PropsWithChildren<Record<string, never>>,
+) => {
   const {children} = props;
   const [companies, setCompanies] = useState<Company[]>([]);
 

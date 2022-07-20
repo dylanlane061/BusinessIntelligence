@@ -24,7 +24,7 @@ export const WatchIndicator = (props: WatchIndicatorProps) => {
   );
 
   return watching ? (
-    <Pulse active={watching} size={75} color={colors.highlight} style={style}>
+    <Pulse active={watching} size={75} color={colors.primary} style={style}>
       <Animated.View entering={FadeIn} exiting={FadeOut}>
         <Icon name="visibility" color={colors.text} size={16} />
       </Animated.View>

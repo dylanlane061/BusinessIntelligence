@@ -72,6 +72,7 @@ export const Profile = () => {
       </View>
 
       <RevenueLineGraph
+        style={styles.graph}
         data={visibleData}
         onEntrySelect={setHighlighted}
         color={processColor(
@@ -116,4 +117,5 @@ const createStyles = (theme: AppTheme) =>
       marginTop: 'auto',
       marginHorizontal: theme.spacing.medium,
     },
+    graph: {height: 200},
   });

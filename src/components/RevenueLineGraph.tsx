@@ -1,5 +1,10 @@
 import React from 'react';
-import {ProcessedColorValue, processColor} from 'react-native';
+import {
+  ProcessedColorValue,
+  processColor,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {BellaLineChart, ChartSelectEvent} from 'react-native-bella-charts';
 
 import {RevenueChartEntry, RevenueChartEntryData} from '~types';
@@ -10,6 +15,7 @@ type RevenueLineGraphProps = {
   data: RevenueChartEntry[];
   onEntrySelect: (data: RevenueChartEntryData | undefined) => void;
   color?: ProcessedColorValue | null;
+  style?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -17,7 +23,7 @@ type RevenueLineGraphProps = {
  * Renders line graph for given revenue data.
  */
 export const RevenueLineGraph = (props: RevenueLineGraphProps) => {
-  const {data, color, onEntrySelect} = props;
+  const {data, color, onEntrySelect, style} = props;
 
   const colors = useColorTheme();
 
@@ -29,7 +35,7 @@ export const RevenueLineGraph = (props: RevenueLineGraphProps) => {
   return (
     <BellaLineChart
       {...COMMON_CHART_PROPS}
-      style={{height: 200}}
+      style={style}
       data={{
         dataSets: [
           {

@@ -39,7 +39,7 @@ export const Pulse = (props: PulseProps) => {
     } else {
       animation.value = 0;
     }
-  }, [active]);
+  }, [active, animation]);
 
   const animatedStyles = useAnimatedStyle(() => {
     const opacity = interpolate(

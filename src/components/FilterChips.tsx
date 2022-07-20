@@ -1,16 +1,31 @@
-import React, {useCallback} from 'react';
-import {
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import React from 'react';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {Button} from '~components';
 import {AppTheme, useStylesForAppTheme} from '~theme';
 import {getContrastColor} from '~utils';
 
 export type Chip = {id: number; value: string | number; label: string};
+
+type ChipProps = {
+  chip: Chip;
+  selected: boolean;
+  onPress: (chip: Chip) => void;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const Chip = (props: ChipProps) => {
+  const {chip, onPress, style} = props;
+
+  const onChipPress = () => {
+    onPress(chip);
+  };
+
+  return (
+    <Button key={chip.id} style={[style]} onPress={onChipPress}>
+      <Text>{chip.label}</Text>
+    </Button>
+  );
+};
 
 type FilterChipProps = {
   chips: Chip[];
@@ -29,23 +44,19 @@ export const FilterChips = (props: FilterChipProps) => {
 
   const styles = useStylesForAppTheme(createStyles);
 
-  return (
-    <View style={[styles.container, style]}>
-      {chips.map(chip => {
-        const isSelected = chip.id === selected.id;
-        return (
-          <Pressable
-            key={chip.id}
-            onPress={useCallback(() => onSelect(chip), [])}
-            style={[styles.chip, isSelected && styles.selected]}>
-            <Text style={[styles.label, isSelected && styles.labelSelected]}>
-              {chip.label}
-            </Text>
-          </Pressable>
-        );
-      })}
-    </View>
-  );
+  const renderChip = (chip: Chip) => {
+    const isSelected = chip.id === selected.id;
+    return (
+      <Chip
+        chip={chip}
+        onPress={onSelect}
+        selected={isSelected}
+        style={[styles.chip, isSelected && styles.selected]}
+      />
+    );
+  };
+
+  return <View style={[styles.container, style]}>{chips.map(renderChip)}</View>;
 };
 
 const createStyles = (theme: AppTheme) =>
@@ -57,7 +68,10 @@ const createStyles = (theme: AppTheme) =>
     chip: {
       borderRadius: 8,
       padding: theme.spacing.small,
+      paddingVertical: theme.spacing.small,
+      paddingHorizontal: theme.spacing.small,
       marginHorizontal: theme.spacing.large,
+      backgroundColor: theme.colors.background,
     },
     selected: {
       backgroundColor: theme.colors.primary,
