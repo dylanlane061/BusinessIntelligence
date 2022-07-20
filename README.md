@@ -8,7 +8,7 @@ Also supports dark mode!
 
 The iOS Graph implemention is setup as its own RN lib in the folder [react-native-bella-charts](https://github.com/dylanlane061/BusinessIntelligence/tree/master/react-native-bella-charts). It's symlinked to the project so if you have any trouble with it try linking it manually.
 
-![](Demo.gif)
+![](Demo_Light.gif) ![](Demo_Dark.gif)
 
 ## Setup
 
