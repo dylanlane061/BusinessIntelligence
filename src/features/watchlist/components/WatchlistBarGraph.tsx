@@ -17,6 +17,7 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     title: {
       marginTop: theme.spacing.large,
+      marginBottom: theme.spacing.medium,
       marginLeft: theme.spacing.medium,
       fontSize: 16,
       fontWeight: '300',

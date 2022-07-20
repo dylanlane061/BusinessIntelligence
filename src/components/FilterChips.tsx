@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
-import {Button} from '~components';
+import {Button} from './Button';
 import {AppTheme, useStylesForAppTheme} from '~theme';
 import {getContrastColor} from '~utils';
 
@@ -48,6 +48,7 @@ export const FilterChips = (props: FilterChipProps) => {
     const isSelected = chip.id === selected.id;
     return (
       <Chip
+        key={chip.id}
         chip={chip}
         onPress={onSelect}
         selected={isSelected}
