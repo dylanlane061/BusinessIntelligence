@@ -33,8 +33,8 @@ export const Button = (props: ButtonProps) => {
         cloneElement(children, {
           style: [
             styles.text,
-            children.props.style,
             {color: getContrastColor(bgColor)},
+            children.props.style,
           ],
         }),
       )}

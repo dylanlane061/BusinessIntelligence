@@ -1,8 +1,9 @@
 import React from 'react';
-import {Pressable, StyleProp, StyleSheet, Text, ViewStyle} from 'react-native';
+import {StyleProp, StyleSheet, Text, ViewStyle} from 'react-native';
 
 import {Company} from '~types';
 import {useColorTheme} from '~theme';
+import {Button} from '~components';
 import {useWatchlist} from '../context';
 
 type WatchButtonProps = {
@@ -32,24 +33,17 @@ export const WatchButton = (props: WatchButtonProps) => {
   const bgColor = watching ? colors.negative : colors.positive;
 
   return (
-    <Pressable
-      style={({pressed}) => [
-        styles.base,
-        style,
-        {backgroundColor: bgColor},
-        pressed && styles.pressed,
-      ]}
+    <Button
+      style={[styles.base, style, {backgroundColor: bgColor}]}
       onPress={onPress}>
-      <Text style={styles.text}>
-        {watching ? 'Stop Watching' : 'Start Watching'}
-      </Text>
-    </Pressable>
+      <Text>{watching ? 'Stop Watching' : 'Start Watching'}</Text>
+    </Button>
   );
 };
 
 const styles = StyleSheet.create({
   base: {
-    padding: 16,
+    paddingVertical: 16,
     borderRadius: 30,
     alignItems: 'center',
   },

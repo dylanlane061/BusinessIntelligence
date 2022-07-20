@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useMemo} from 'react';
 import {Appearance, ImageStyle, TextStyle, ViewStyle} from 'react-native';
 import {spacing, SpacingTheme} from './spacing';
 import {colorDark, colorLight, ColorTheme} from './color';
@@ -80,5 +80,9 @@ export const useStylesForAppTheme = (
   },
 ) => {
   const appTheme = useAppTheme();
-  return createStyles(appTheme);
+  const styles = useMemo(
+    () => createStyles(appTheme),
+    [appTheme, createStyles],
+  );
+  return styles;
 };
