@@ -1,8 +1,8 @@
 # BI
 
-Displays a list of compaines, allowing a user to drill down into each and see up to 6 months of revenue data. Graph is interactable and can be filtered.
+Displays a list of companies, allowing a user to drill down into each and see up to 6 months of revenue data. Graph is interactable and can be filtered.
 
-Each business can be "watched" which will add it the watchlist at the top of the home screen. For a watchlist, the 6 month total company revenues is compared on a bar graph.
+Each business can be "watched" which will add it a watchlist at the top of the home screen. From there the 6 month company revenue totals can be compared.
 
 Also supports dark mode!
 

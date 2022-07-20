@@ -1,4 +1,4 @@
-import {requireNativeComponent, UIManager, Platform} from 'react-native';
+import {requireNativeComponent, UIManager} from 'react-native';
 import {LINKING_ERROR} from '../constants';
 import {ChartProps, BarData} from '../types';
 

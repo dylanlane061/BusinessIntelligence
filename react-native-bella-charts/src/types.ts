@@ -15,7 +15,7 @@ export type ChartDescription = {
   text: string;
 };
 
-export type ChartEntry<D = any> = {
+export type ChartEntry<D> = {
   x: number;
   y: number;
   marker?: string;
@@ -26,11 +26,11 @@ export type ChartLegend = {
   enabled?: boolean;
 };
 
-export type ChartSelectEvent<D = any> = NativeSyntheticEvent<{
+export type ChartSelectEvent<D> = NativeSyntheticEvent<{
   data: ChartEntry<D> | undefined;
 }>;
 
-export type DataSet<C = {}> = {
+export type DataSet<C> = {
   label?: string;
   values: {
     x: number;
@@ -81,7 +81,7 @@ export type LineDataSet = DataSet<{
 
 export type LineData = {
   dataSets: LineDataSet[];
-  config?: {};
+  config?: Record<string, never>;
 };
 
 export type BarData = {
