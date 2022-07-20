@@ -10,7 +10,7 @@ export const weightedCoinFlip = (failChance: number) =>
 export const getCompanies = async () => {
   await delay(2000);
 
-  const success = weightedCoinFlip(70);
+  const success = weightedCoinFlip(50);
 
   if (success) {
     return data as Company[];

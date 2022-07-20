@@ -37,6 +37,7 @@ export const Home = () => {
         keyExtractor={companyKeyExtractor}
         ListHeaderComponent={Watchlist}
         stickyHeaderIndices={[0]}
+        windowSize={11}
         ListEmptyComponent={
           <>
             {companies.isLoading && <ActivityIndicator size={'large'} />}
