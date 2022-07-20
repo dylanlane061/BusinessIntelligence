@@ -1,6 +1,6 @@
 # react-native-bella-charts
 
-Beautiful (bella) native charts for react native
+Beautiful (bella) native charts for react native. Sadly, only supports iOS...Android coming soon!
 
 ## Installation
 

@@ -6,7 +6,7 @@ Each business can be "watched" which will add it a watchlist at the top of the h
 
 Also supports dark mode!
 
-Sadly, no Android support for the graphs yet.
+The iOS Graph implemention is setup as its own RN lib in the folder [react-native-bella-charts](https://github.com/dylanlane061/BusinessIntelligence/tree/master/react-native-bella-charts). It's symlinked to the project so if you have any trouble with it try linking it manually.
 
 ![](Demo.gif)
 
