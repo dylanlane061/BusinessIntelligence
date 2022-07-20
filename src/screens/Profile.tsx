@@ -67,7 +67,7 @@ export const Profile = () => {
         <Trend
           firstValue={firstEntry?.data?.value}
           lastValue={highlighted?.value || lastEntry?.data?.value}
-          timeFrame={highlighted ? undefined : `Past ${filter.value} months`}
+          timeFrame={highlighted?.dateLabel || `Past ${filter.value} months`}
         />
       </View>
 
