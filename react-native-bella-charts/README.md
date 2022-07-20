@@ -60,9 +60,9 @@ const onSelect = (event: ChartSelectEvent<D>) => {
             },
         }],
     }}
-      viewPortOffsets={{left: 0, top: 0}}
-      onSelect={onSelect}
-      animation={{
+    viewPortOffsets={{left: 0, top: 0}}
+    onSelect={onSelect}
+    animation={{
         durationX: 500,
         durationY: 500,
     }}
